@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Use neovim for vim if present
+[ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
+
+# sudo not required for some system commands
+for command in mount umount systemctl updatedb cryptsetup su shutdown poweroff reboot ; do
+	alias $command="sudo $command"
+done; unset command
+
+# Verbosity and settings that you pretty much just always are going to want
+alias \
+	cp="cp -iv" \
+	mv="mv -iv" \
+	rm="rm -vI" \
+	rsync="rsync -avuP" \
+	mkd="mkdir -pv"
+
+# Colorize commands when possible
+alias \
+	ls="ls -lahN --color=auto --group-directories-first" \
+	grep="grep --color=auto" \
+	diff="diff --color=auto" \
+	ccat="highlight --out-format=ansi" \
+	ip="ip -color=auto"
