@@ -1,41 +1,76 @@
 #!/bin/sh
-# Fork of Luke Smith's aliasrc
 
 # Use neovim for vim if present
 [ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
 
-# sudo not required for some system commands
-for command in mount umount systemctl pacman updatedb cryptsetup su shutdown poweroff reboot ; do
+# Use variable if file exists
+[ -f "$XINITRC" ] && alias startx="startx $XINITRC"
+[ -f "$MBSYNCRC" ] && alias mbsync="mbsync -c $MBSYNCRC"
+
+# always use 'sudo' with the following commands
+for command in cryptsetup mount umount pacman poweroff reboot shutdown su sv systemctl updatedb ; do
 	alias $command="sudo $command"
 done; unset command
 
-# Verbosity and settings that you pretty much just always are going to want
+se() {
+	choice="$(find ~/.local/bin -mindepth 1 -printf '%P\n' | fzf)"
+	[ -f "$HOME/.local/bin/$choice" ] && $EDITOR "$HOME/.local/bin/$choice"
+	;}
+
+# Verbosity and settings that you pretty much just always are going to want.
 alias \
+	bc="bc -ql" \
 	cp="cp -iv" \
+	ffmpeg="ffmpeg -hide_banner" \
+	history="history 1" \
+	mkd="mkdir" \
+	mkdir="mkdir -pv" \
 	mv="mv -iv" \
 	rm="rm -vI" \
 	rsync="rsync -avuP" \
-	mkd="mkdir -pv"
+	yt="yt-dlp --embed-metadata -i" \
+	yta="yt -x -f bestaudio/best" \
+	ytt="yt --skip-download --write-thumbnail" \
+	ytv="yt -f \"bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best\""
 
-# Colorize commands when possible
+# Colorize commands when possible.
 alias \
-	ls="ls -lahN --color=auto --group-directories-first" \
-	grep="grep --color=auto" \
-	diff="diff --color=auto" \
 	ccat="highlight --out-format=ansi" \
-	ip="ip -color=auto"
+	diff="diff --color=auto" \
+	grep="grep --color=auto" \
+	ip="ip -color=auto" \
+	ls="ls -lahN --color=auto --group-directories-first"
 
-# These common commands are just too long! Abbreviate them
+# These common commands are just too long! Abbreviate them.
 alias \
-	ka="killall" \
-	g="git" \
-	sdn="shutdown -h now" \
 	e="$EDITOR" \
+	g="git" \
+	ka="killall" \
+	p="pacman" \
+	sdn="shutdown -h now" \
+	trem="transmission-remote" \
 	v="$EDITOR" \
-	p="pacman" 
+	xi="sudo xbps-install" \
+	xq="xbps-query" \
+	xr="sudo xbps-remove -R" \
+	YT="youtube-viewer" \
+	z="zathura"
 
+# Assorted aliases.
 alias \
 	lf="lfub" \
 	magit="nvim -c MagitOnly" \
 	ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc" \
-	weath="less -S ${XDG_CACHE_HOME:-$HOME/.cache}/weatherreport" \
+	weath="less -S ${XDG_CACHE_HOME:-$HOME/.cache}/weatherreport"
+
+# Aliases for package manager
+alias \
+	update="pacman -Sy" \
+	upgrade="pacman -Syu"
+
+##########################################################
+
+# Use doas for sudo if present
+# [ -x "$(command -v doas)" ] && alias sudo="doas"
+
+##########################################################
