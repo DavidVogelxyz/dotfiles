@@ -25,6 +25,7 @@ alias \
 	bc="bc -ql" \
 	cp="cp -iv" \
 	ffmpeg="ffmpeg -hide_banner" \
+	history="history 1" \
 	mkd="mkdir" \
 	mkdir="mkdir -pv" \
 	mv="mv -iv" \
@@ -45,12 +46,12 @@ alias \
 
 # These common commands are just too long! Abbreviate them.
 alias \
-	e="$EDITOR" \
+	e="$EDITOR ." \
 	g="git" \
 	ka="killall" \
 	sdn="shutdown -h now" \
 	trem="transmission-remote" \
-	v="$EDITOR" \
+	v="$EDITOR ." \
 	xi="sudo xbps-install" \
 	xq="xbps-query" \
 	xr="sudo xbps-remove -R" \
