@@ -1,15 +1,11 @@
-#
-# ~/.bashrc
-#
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias ls='ls --color=auto'
-alias grep='grep --color=auto'
-
+# Load aliases
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
 
+# History
 HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/shell/history"
 HISTSIZE=10000000
 SAVEHIST=10000000
@@ -24,3 +20,6 @@ else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 unset color_prompt force_color_prompt
+
+# GPG signing
+export GPG_TTY="$(tty)"
