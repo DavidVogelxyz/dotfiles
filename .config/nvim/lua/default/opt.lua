@@ -58,7 +58,6 @@ vim.o.tabstop = 4
 -- vim history
 vim.o.backup = false
 vim.o.swapfile = false
-vim.o.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.o.undofile = true
 
 -- set up for vimwiki, need to clean up
