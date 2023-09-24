@@ -3,13 +3,11 @@ vim.g.mapleader = " "
 -- map leader+pv to open Ex
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
--- map leader+leader+w to save current file in normal mode
--- was leader+w, until vimwiki wanted the 'w'
--- was leader+s, but I didn't like it
-vim.keymap.set("n", "<Leader><Leader>w", ":write<CR>", { noremap = true, silent = true })
+-- map leader+leader to save current file in normal mode
+vim.keymap.set("n", "<Leader><Leader>", ":w<CR>", { noremap = true, silent = true })
 
 -- lets you SHOUTOUT a file real easy
-vim.keymap.set("n", "<leader><leader><leader>", function() vim.cmd("so") end)
+vim.keymap.set("n", "<leader><CR>", function() vim.cmd("so") end)
 
 -- map replace all to both leader+s and S
 vim.keymap.set("n", "<leader>s", [[:%s//gc<Left><Left><Left>]])
