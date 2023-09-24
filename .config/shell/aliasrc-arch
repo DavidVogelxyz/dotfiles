@@ -43,13 +43,13 @@ alias \
 
 # These common commands are just too long! Abbreviate them.
 alias \
-	e="$EDITOR ." \
+	e="$EDITOR" \
 	g="git" \
 	ka="killall" \
 	p="pacman" \
 	sdn="shutdown -h now" \
 	trem="transmission-remote" \
-	v="$EDITOR ." \
+	v="$EDITOR" \
 	xi="sudo xbps-install" \
 	xq="xbps-query" \
 	xr="sudo xbps-remove -R" \
