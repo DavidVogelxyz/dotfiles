@@ -6,10 +6,6 @@
 # If you don't plan on reverting to bash, you can remove the link in ~/.profile
 # to clean up.
 
-[ -n "$BASH_VERSION" ] && [ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc"
-[ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
-# [ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
-
 # Adds `~/.local/bin` to $PATH
 export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
 
@@ -20,10 +16,6 @@ export EDITOR="nvim"
 export TERMINAL="st"
 export TERMINAL_PROG="st"
 export BROWSER="librewolf"
-
-# Change the default crypto/weather monitor sites.
-# export CRYPTOURL="rate.sx"
-# export WTTRURL="wttr.in"
 
 # ~/ Clean-up:
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -36,7 +28,7 @@ export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 export INPUTRC="$XDG_CONFIG_HOME/shell/inputrc"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
-#export GNUPGHOME="$HOME/.gnupg"
+#export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export WINEPREFIX="$XDG_DATA_HOME/wineprefixes/default"
 export KODI_DATA="$XDG_DATA_HOME/kodi"
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store"
