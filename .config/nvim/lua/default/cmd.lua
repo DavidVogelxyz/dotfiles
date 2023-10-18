@@ -17,6 +17,7 @@ endif
 vim.cmd ([[
 call plug#begin(system('echo -n "${XDG_DATA_HOME:-$HOME/.local/share}/nvim/plugged"'))
 Plug 'ap/vim-css-color'
+Plug 'lunarvim/synthwave84.nvim'
 Plug 'mbbill/undotree'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.2' }
