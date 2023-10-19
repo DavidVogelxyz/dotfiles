@@ -5,7 +5,7 @@
 -- dark and true is blue and yellow and bright    -- cool for dark backgrounds
 -- light and true, with dark blue and pink    -- cool for light backgrounds
 vim.o.bg = "dark"
-vim.o.termguicolors = true
+vim.o.termguicolors = false
 
 -- set shared clipboard
 vim.o.clipboard = "unnamedplus"
