@@ -53,4 +53,4 @@ esac
 	notify-send "$icon Update complete." "$name price is now
 \$$(cat "$pricefile")"
 
-[ -f "$pricefile" ] && printf "%s%s%0.0f" "$icon" "$symb" "$(cat "$pricefile")"
+[ $name == "Bitcoin" ] && ( [ -f "$pricefile" ] && printf "%s%s%0.0f" "$icon" "$symb" "$(cat "$pricefile")" ) || ( [ -f "$pricefile" ] && printf "%s%s%0.8f" "$icon" "$symb" "$(cat "$pricefile")" )
