@@ -1,0 +1,11 @@
+#!/bin/sh
+
+alias \
+    cp="cp -iv" \
+    g="git" \
+    ls="ls -lah --color=auto --group-directories-first" \
+    mkd="mkdir" \
+    mkdir="mkdir -pv" \
+    mv="mv -iv" \
+    rm="rm -v" \
+    v="vim"
