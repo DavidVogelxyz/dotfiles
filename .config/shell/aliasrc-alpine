@@ -8,4 +8,5 @@ alias \
     mkdir="mkdir -pv" \
     mv="mv -iv" \
     rm="rm -v" \
+    tmux="tmux -u" \
     v="vim"

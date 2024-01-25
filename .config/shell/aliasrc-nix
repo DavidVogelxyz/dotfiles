@@ -28,6 +28,7 @@ alias \
     mv="mv -iv" \
     rm="rm -vI" \
     rsync="rsync -avuP" \
+    tmux="tmux -u" \
     yt="yt-dlp --embed-metadata -i" \
     yta="yt -x -f bestaudio/best" \
     ytt="yt --skip-download --write-thumbnail" \
