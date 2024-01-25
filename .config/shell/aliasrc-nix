@@ -9,59 +9,59 @@
 
 # always use 'sudo' with the following commands
 for command in cryptsetup mount umount poweroff reboot shutdown su systemctl updatedb ; do
-	alias $command="sudo $command"
+    alias $command="sudo $command"
 done; unset command
 
 se() {
-	choice="$(find ~/.local/bin -mindepth 1 -printf '%P\n' | fzf)"
-	[ -f "$HOME/.local/bin/$choice" ] && $EDITOR "$HOME/.local/bin/$choice"
-	}
+    choice="$(find ~/.local/bin -mindepth 1 -printf '%P\n' | fzf)"
+    [ -f "$HOME/.local/bin/$choice" ] && $EDITOR "$HOME/.local/bin/$choice"
+}
 
 # Verbosity and settings that you pretty much just always are going to want.
 alias \
-	bc="bc -ql" \
-	cp="cp -iv" \
-	ffmpeg="ffmpeg -hide_banner" \
-	history="history 1" \
-	mkd="mkdir" \
-	mkdir="mkdir -pv" \
-	mv="mv -iv" \
-	rm="rm -vI" \
-	rsync="rsync -avuP" \
-	yt="yt-dlp --embed-metadata -i" \
-	yta="yt -x -f bestaudio/best" \
-	ytt="yt --skip-download --write-thumbnail" \
-	ytv="yt -f \"bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best\""
+    bc="bc -ql" \
+    cp="cp -iv" \
+    ffmpeg="ffmpeg -hide_banner" \
+    history="history 1" \
+    mkd="mkdir" \
+    mkdir="mkdir -pv" \
+    mv="mv -iv" \
+    rm="rm -vI" \
+    rsync="rsync -avuP" \
+    yt="yt-dlp --embed-metadata -i" \
+    yta="yt -x -f bestaudio/best" \
+    ytt="yt --skip-download --write-thumbnail" \
+    ytv="yt -f \"bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best\""
 
 # Colorize commands when possible.
 alias \
-	ccat="highlight --out-format=ansi" \
-	diff="diff --color=auto" \
-	grep="grep --color=auto" \
-	ip="ip -color=auto" \
-	ls="ls -lahN --color=auto --group-directories-first"
+    ccat="highlight --out-format=ansi" \
+    diff="diff --color=auto" \
+    grep="grep --color=auto" \
+    ip="ip -color=auto" \
+    ls="ls -lahN --color=auto --group-directories-first"
 
 # These common commands are just too long! Abbreviate them.
 alias \
-	e="$EDITOR" \
-	g="git" \
-	ka="killall" \
-	p="pacman" \
-	sdn="shutdown -h now" \
-	trem="transmission-remote" \
-	v="$EDITOR" \
-	xi="sudo xbps-install" \
-	xq="xbps-query" \
-	xr="sudo xbps-remove -R" \
-	YT="youtube-viewer" \
-	z="zathura"
+    e="$EDITOR" \
+    g="git" \
+    ka="killall" \
+    p="pacman" \
+    sdn="shutdown -h now" \
+    trem="transmission-remote" \
+    v="$EDITOR" \
+    xi="sudo xbps-install" \
+    xq="xbps-query" \
+    xr="sudo xbps-remove -R" \
+    YT="youtube-viewer" \
+    z="zathura"
 
 # Assorted aliases.
 alias \
-	lf="lfub" \
-	magit="nvim -c MagitOnly" \
-	ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc" \
-	weath="less -S ${XDG_CACHE_HOME:-$HOME/.cache}/weatherreport"
+    lf="lfub" \
+    magit="nvim -c MagitOnly" \
+    ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc" \
+    weath="less -S ${XDG_CACHE_HOME:-$HOME/.cache}/weatherreport"
 
 ##########################################################
 
