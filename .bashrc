@@ -6,7 +6,7 @@
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
 
 # History
-HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/shell/history"
+HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/bash/history"
 HISTSIZE=10000000
 SAVEHIST=10000000
 
