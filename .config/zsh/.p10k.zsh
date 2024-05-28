@@ -949,6 +949,7 @@
   typeset -g POWERLEVEL9K_USER_{REMOTE,REMOTE_SUDO}_FOREGROUND=180
   # Default context color (no privileges, no SSH).
   # original color was brown-180; currently dark-red-161
+  # other good choices include orange-166 and rust-009
   typeset -g POWERLEVEL9K_USER_FOREGROUND=161
 
   # Context format when running with privileges: bold user@hostname.
