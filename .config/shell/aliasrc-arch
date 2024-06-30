@@ -8,7 +8,7 @@
 [ -f "$MBSYNCRC" ] && alias mbsync="mbsync -c $MBSYNCRC"
 
 # always use 'sudo' with the following commands
-for command in cryptsetup mount umount pacman poweroff reboot shutdown su sv systemctl updatedb ; do
+for command in cryptsetup mount umount poweroff reboot shutdown su ufw updatedb pacman sv systemctl ; do
     alias $command="sudo $command"
 done; unset command
 
