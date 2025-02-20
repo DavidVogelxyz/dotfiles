@@ -1,0 +1,19 @@
+#!/bin/sh
+
+export DISPLAY=:0
+
+m1="HDMI-1"
+
+notif() {
+    notify-send -t 3000 "Brightness adjusted!"
+}
+
+[ "$1" = "" ] && echo "Please provide a value between 1 and 10 for the brightness." && exit 1
+
+[[ "$1" -ge 10 ]] && bright="1" || bright="0.$1"
+[[ "$1" -le 0 ]] && bright="0.5"
+
+[ "$2" = night ] && gamma="1.0:0.95:0.85" || gamma="1.0:1.0:1.0"
+
+xrandr --output "$m1" --brightness "$bright" --gamma "$gamma" && \
+    notif
