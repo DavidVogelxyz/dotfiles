@@ -1,0 +1,172 @@
+#!/bin/sh
+
+#####################################################################
+# ALIASES FOR ALL
+#####################################################################
+
+# Aliases that should be common to all Linux installations
+# Should not require any additional packages
+alias \
+    ccat="highlight --out-format=ansi" \
+    cp="cp -iv" \
+    diff="diff --color=auto" \
+    e="$EDITOR" \
+    grep="grep --color=auto" \
+    history="history 1" \
+    ip="ip -color=auto" \
+    ka="killall" \
+    mkd="mkdir" \
+    mkdir="mkdir -pv" \
+    mv="mv -iv" \
+    rm="rm -v" \
+    sdn="shutdown -h now"
+
+# Aliases that should be common to all Linux installations
+# May require additional packages
+alias \
+    bc="bc -ql" \
+    ffmpeg="ffmpeg -hide_banner" \
+    g="git" \
+    lf="lfub" \
+    magit="nvim -c MagitOnly" \
+    rsync="rsync -avuP" \
+    tmux="tmux -u" \
+    trem="transmission-remote" \
+    v="$EDITOR" \
+    weath="less -S ${XDG_CACHE_HOME:-$HOME/.cache}/weatherreport" \
+    xi="sudo xbps-install" \
+    xq="xbps-query" \
+    xr="sudo xbps-remove -R" \
+    YT="youtube-viewer" \
+    yt="yt-dlp --embed-metadata -i" \
+    yta="yt -x -f bestaudio/best" \
+    ytt="yt --skip-download --write-thumbnail" \
+    ytv="yt -f \"bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best\"" \
+    z="zathura"
+
+# Use neovim for vim if present
+[ -x "$(command -v nvim)" ] \
+    && alias \
+        vim="nvim" \
+        vimdiff="nvim -d"
+
+# Use variable if file exists
+# May not want this on if not dwm
+[ -f "$XINITRC" ] \
+    && alias startx="startx $XINITRC"
+
+[ -f "$MBSYNCRC" ] \
+    && alias mbsync="mbsync -c $MBSYNCRC"
+
+#####################################################################
+# DISTRO-SPECIFIC ALIASES
+#####################################################################
+
+# the `command` array will be relevant later
+command=()
+
+# `ls` for Alpine
+grep -q "ID=.*alpine" /etc/os-release \
+    && alias ls="ls -lah --color=auto --group-directories-first"
+
+# `ls` for all others
+alias ls="ls -lahN --color=auto --group-directories-first"
+
+# Debian-based aliases
+(grep -q "ID=.*debian" /etc/os-release || grep -q "ID=.*ubuntu" /etc/os-release) \
+    && {
+        # Use nala for apt if present
+        [ -x "$(command -v nala)" ] && alias apt="nala"
+
+        alias \
+            update="apt update" \
+            upgrade="apt upgrade"
+
+        command+=(
+            "apt"
+            "nala"
+        )
+    }
+
+# Arch-based aliases
+(grep -q "ID=.*arch" /etc/os-release || grep -q "ID=.*artix" /etc/os-release) \
+    && {
+        alias \
+            p="pacman" \
+            update="pacman -Sy" \
+            upgrade="pacman -Syu"
+
+        command+=(
+            "pacman"
+            "sv"
+        )
+    }
+
+# RHEL-based aliases
+grep -q "ID=.*rocky" /etc/os-release \
+    && {
+        alias \
+            update="dnf update" \
+            upgrade="dnf update"
+
+        command+=(
+            "dnf"
+        )
+
+        # Rocky 8 systems have older `tmux` packages, so this covers that
+        alias \
+            tmux-config="tmux source-file ~/.config/tmux/tmux.conf" \
+            tmux-kill="tmux kill-session -t" \
+            tmux-new="tmux new-session -c ~/ -ds" \
+            tmux-start="tmux new-session -ds blank -c ~/ && tmux-config && tmux new-session -ds homedir -c ~/ && tmux-kill blank && tmux a -t homedir"
+    }
+
+# Alpine Linux aliases
+grep -q "ID=.*alpine" /etc/os-release \
+    && {
+        alias \
+            update="apk update" \
+            upgrade="apk upgrade"
+
+        command+=(
+            "apk"
+            "rc-service"
+            "rc-update"
+            "service"
+        )
+    }
+
+# NixOS aliases
+grep -q "ID=.*nix" /etc/os-release \
+    && {
+        command+=(
+            "nixos-rebuild"
+        )
+    }
+
+#####################################################################
+# "SUDO ASSUMED"
+#####################################################################
+
+# The default additions to `command`
+command+=(
+    "cryptsetup"
+    "mount"
+    "poweroff"
+    "reboot"
+    "shutdown"
+    "su"
+    "systemctl"
+    "ufw"
+    "umount"
+    "updatedb"
+)
+
+# If user is NOT the root user, alias all commands in the `command` array to `sudo $command`
+[ "$(whoami)" = "root" ] \
+    || for command in "${command[@]}" ; do
+        alias $command="sudo $command"
+    done
+
+# Clean up by unsetting command
+unset command

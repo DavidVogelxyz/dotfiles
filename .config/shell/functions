@@ -1,0 +1,12 @@
+#!/bin/sh
+
+ref() {
+    shortcuts >/dev/null
+    source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc
+    source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc
+}
+
+se() {
+    choice="$(find ~/.local/bin -mindepth 1 -printf '%P\n' | fzf)"
+    [ -f "$HOME/.local/bin/$choice" ] && $EDITOR "$HOME/.local/bin/$choice"
+}
