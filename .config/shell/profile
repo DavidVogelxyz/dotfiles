@@ -6,6 +6,15 @@
 # Add all directories in `~/.local/bin` to $PATH
 export PATH="$PATH:$(find ~/.local/bin -type d | paste -sd ':' -)"
 
+# Add all symlinked directories in `~/.local/bin` to $PATH
+#export PATH="$PATH:$(find ~/.local/bin -type l -xtype d | paste -sd ':' -)"
+
+# Add all subdirectories of symlinked directories in `~/.local/bin` to $PATH
+#export PATH="$PATH:$(for d in $(find ~/.local/bin -type l -xtype d); do find ${d}/ -mindepth 1 -type d; done | paste -sd ':' -)"
+
+# Add all symlinked directories (as well as all subdirectories) in `~/.local/bin` to $PATH
+export PATH="$PATH:$(for d in $(find ~/.local/bin -type l -xtype d); do find ${d}/ -type d; done | paste -sd ':' -)"
+
 unsetopt PROMPT_SP 2>/dev/null
 
 # Default programs:
