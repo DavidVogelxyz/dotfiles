@@ -1,17 +1,20 @@
-
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
 # Load aliases
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
+if [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ]]; then
+    source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
+fi
 
 # History
 HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/bash/history"
 HISTSIZE=10000000
 SAVEHIST=10000000
 
+# get that color prompt, where possible
 case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
+    xterm-color|*-256color)
+        color_prompt=yes;;
 esac
 
 if [ "$color_prompt" = yes ]; then
@@ -19,7 +22,10 @@ if [ "$color_prompt" = yes ]; then
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
+
 unset color_prompt force_color_prompt
 
-# GPG signing
-export GPG_TTY="$(tty)"
+# Source profile if it hasn't yet been sourced
+if [[ -z "$EDITOR" ]] && [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile" ]]; then
+    source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile"
+fi
