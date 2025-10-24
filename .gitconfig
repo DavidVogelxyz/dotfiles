@@ -1,5 +1,7 @@
 [include]
     path = ~/.gitconfig-private
+
+# [user.name] and [user.email] are now set in `~/.gitconfig-private`
 [user]
     signing = key
 [commit]
@@ -11,10 +13,9 @@
 [difftool]
     prompt = false
 [alias]
-    #lg = log --all --decorate --graph --abbrev-commit --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
-    #lg = log --all --decorate --graph --abbrev-commit --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(white)- %an%C(reset)%C(auto)%d%C(reset)'
     lg = lg1
     lg1 = log --all --decorate --graph --abbrev-commit --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(white)- %an%C(reset)%C(auto)%d%C(reset)'
+    #lg1 = log --all --decorate --graph --abbrev-commit --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
     lg2 = log --all --decorate --graph --abbrev-commit --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(white)- %an%C(reset)'
     rebase-int = rebase --committer-date-is-author-date -i
     status-remote = rev-list --left-right --count
