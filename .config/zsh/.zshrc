@@ -1,6 +1,8 @@
 # Forked from Luke's config for the Zoomer Shell
 
-[ -f ~/.local/src/powerlevel10k/powerlevel10k.zsh-theme ] && source ~/.local/src/powerlevel10k/powerlevel10k.zsh-theme
+if [[ -f ~/.local/src/powerlevel10k/powerlevel10k.zsh-theme ]]; then
+    source ~/.local/src/powerlevel10k/powerlevel10k.zsh-theme
+fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -24,9 +26,11 @@ setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
 
 # Load aliases and shortcuts if existent.
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc"
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc"
+for f in "shell/shortcutrc" "shell/aliasrc" "shell/zshnameddirrc"; do
+    if [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/${f}" ]]; then
+        source "${XDG_CONFIG_HOME:-$HOME/.config}/${f}"
+    fi
+done
 
 # Basic auto/tab complete:
 autoload -U compinit
@@ -47,7 +51,7 @@ bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
 
 # Change cursor shape for different vi modes.
-function zle-keymap-select () {
+function zle-keymap-select() {
     case $KEYMAP in
         vicmd) echo -ne '\e[1 q';;      # block
         viins|main) echo -ne '\e[5 q';; # beam
@@ -66,13 +70,13 @@ echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 # Use lf to switch directories and bind it to ctrl-o
-lfcd () {
+lfcd() {
     tmp="$(mktemp -uq)"
     trap 'rm -f $tmp >/dev/null 2>&1 && trap - HUP INT QUIT TERM PWR EXIT' HUP INT QUIT TERM PWR EXIT
     lf -last-dir-path="$tmp" "$@"
-    if [ -f "$tmp" ]; then
+    if [[ -f "$tmp" ]]; then
         dir="$(cat "$tmp")"
-        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+        [[ -d "$dir" ]] && [[ "$dir" != "$(pwd)" ]] && cd "$dir"
     fi
 }
 
@@ -99,13 +103,13 @@ export GPG_TTY="$(tty)"
 
 # Load syntax highlighting; should be last.
 # Arch
-[ -f /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh ] \
-    && source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null
-
-# Debian
-[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] \
-    && source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+if [[ -f /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh ]]; then
+    source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+elif [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+    source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
-[[ ! -f ~/.config/zsh/.p10k.zsh ]] \
-    || source ~/.config/zsh/.p10k.zsh
+if [[ -f ~/.config/zsh/.p10k.zsh ]]; then
+    source ~/.config/zsh/.p10k.zsh
+fi
