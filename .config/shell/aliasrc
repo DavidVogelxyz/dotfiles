@@ -139,6 +139,9 @@ elif [[ "$(command -v rc-service)" ]]; then
     )
 fi
 
+# Renew `$PATH`
+alias renew-path="export PATH=\"$PATH\""
+
 # Rocky Linux aliases
 # Rocky 8 systems run older versions of `tmux`, so these aliases cover that
 if [[ "$(grep "ID=.*rocky" /etc/os-release)" ]]; then
