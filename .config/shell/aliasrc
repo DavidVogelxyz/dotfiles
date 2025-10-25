@@ -17,6 +17,8 @@ command=(
 # Aliases for all distros - should not require additional packages
 alias \
     ccat="highlight --out-format=ansi" \
+    chmod="chmod -v" \
+    chown="chown -v" \
     cp="cp -iv" \
     diff="diff --color=auto" \
     e="$EDITOR" \
