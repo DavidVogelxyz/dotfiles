@@ -1,6 +1,11 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+# Source profile if it hasn't yet been sourced
+if [[ -z "$EDITOR" ]] && [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile" ]]; then
+    source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile"
+fi
+
 # Load aliases
 if [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ]]; then
     source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
@@ -24,8 +29,3 @@ else
 fi
 
 unset color_prompt force_color_prompt
-
-# Source profile if it hasn't yet been sourced
-if [[ -z "$EDITOR" ]] && [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile" ]]; then
-    source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile"
-fi
