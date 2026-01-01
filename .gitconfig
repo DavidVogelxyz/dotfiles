@@ -1,6 +1,3 @@
-[include]
-    path = ~/.gitconfig-private
-
 # [user.name] and [user.email] are now set in `~/.gitconfig-private`
 [user]
     signing = key
@@ -20,3 +17,5 @@
     rebase-int = rebase --committer-date-is-author-date -i
     status-remote = rev-list --left-right --count
     s = status
+[include]
+    path = ~/.gitconfig-private
