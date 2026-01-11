@@ -37,6 +37,7 @@ alias \
     ffmpeg="ffmpeg -hide_banner" \
     g="git" \
     lf="lfub" \
+    mount_nfs="mount -a -t nfs" \
     rsync="rsync -avuP" \
     tmux="tmux -u" \
     trem="transmission-remote" \
