@@ -23,7 +23,6 @@ alias \
     diff="diff --color=auto" \
     e="$EDITOR" \
     grep="grep --color=auto" \
-    history="history 1" \
     ip="ip -color=auto" \
     ka="killall" \
     mkd="mkdir" \

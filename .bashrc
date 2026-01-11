@@ -15,6 +15,10 @@ fi
 HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/bash/history"
 HISTSIZE=10000000
 SAVEHIST=10000000
+shopt -s histappend                 # Append to history file (if a user is logged in multiple times)
+HISTCONTROL=ignoredups:ignorespace  # Do not record immediate duplicates; ignore space
+PROMPT_COMMAND="history -a"         # Append to history as soon as the command is executed
+HISTTIMEFORMAT="%Y %b %e %T:  "     # Format the history timestamp
 
 # get that color prompt, where possible
 case "$TERM" in

@@ -22,8 +22,12 @@ setopt interactive_comments
 HISTSIZE=10000000
 SAVEHIST=10000000
 HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history"
-setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_SPACE
+setopt EXTENDED_HISTORY         # Save timestamp information with the command
+setopt APPENDHISTORY            # Append to history file (if a user is logged in multiple times)
+setopt INC_APPEND_HISTORY       # Append to history as soon as the command is executed
+setopt HIST_IGNORE_DUPS         # Do not record command if previous command was the same
+setopt HIST_IGNORE_SPACE        # Do not record command if command starts with a space
+alias history="history -t \"%Y %b %e %T:\" 1"       # zsh-specific history alias
 
 # Load aliases and shortcuts if existent.
 for f in "shell/shortcutrc" "shell/aliasrc" "shell/zshnameddirrc"; do
