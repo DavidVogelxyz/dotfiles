@@ -151,14 +151,23 @@ if [[ "$(grep "ID=.*rocky" /etc/os-release)" ]]; then
         tmux-new="tmux new-session -c ~/ -ds"
 fi
 
-# If user is NOT the root user, alias all commands in the `command` array to `sudo $command`
+# If user is NOT the root user, alias all commands in the `command` array
 if ! [[ "$(whoami)" == "root" ]]; then
-    for c in "${command[@]}" ; do
-        alias $c="sudo $c"
-    done
+    if [[ "$(command -v doas)" ]]; then
+        root_cmd="doas"
+    elif [[ "$(command -v sudo)" ]]; then
+        root_cmd="sudo"
+    fi
+
+    if [[ "$root_cmd" ]]; then
+        for c in "${command[@]}" ; do
+            alias $c="$root_cmd $c"
+        done
+    fi
 fi
 
 # Clean up
+unset root_cmd
 unset command
 
 # Load any additional aliases
