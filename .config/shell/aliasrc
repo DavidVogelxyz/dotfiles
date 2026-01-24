@@ -43,9 +43,6 @@ alias \
     trem="transmission-remote" \
     v="$EDITOR" \
     weath="less -S ${XDG_CACHE_HOME:-$HOME/.cache}/weatherreport" \
-    xi="sudo xbps-install" \
-    xq="xbps-query" \
-    xr="sudo xbps-remove -R" \
     YT="youtube-viewer" \
     yt="yt-dlp --embed-metadata -i" \
     yta="yt -x -f bestaudio/best" \
@@ -120,6 +117,16 @@ elif [[ "$(command -v dnf)" ]]; then
         upgrade="dnf update"
 
     command+=("dnf")
+elif [[ "$(command -v xbps-install)" ]]; then
+    alias \
+        xi="xbps-install" \
+        xq="xbps-query" \
+        xr="xbps-remove -R"
+
+    command+=(
+        "xbps-install"
+        "xbps-remove"
+    )
 elif [[ "$(command -v nixos-rebuild)" ]]; then
     command+=("nixos-rebuild")
 fi
