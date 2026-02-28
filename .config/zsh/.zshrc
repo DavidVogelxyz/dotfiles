@@ -1,14 +1,17 @@
 # Forked from Luke's config for the Zoomer Shell
 
-if [[ -f ~/.local/src/powerlevel10k/powerlevel10k.zsh-theme ]]; then
-    source ~/.local/src/powerlevel10k/powerlevel10k.zsh-theme
-fi
+# Check for `starship`; if unavailable; attempt to initialize `powerlevel10k`
+if ! [[ "$(command -v starship)" ]] || ! [[ -f ~/.config/starship.toml ]]; then
+    if [[ -f ~/.local/src/powerlevel10k/powerlevel10k.zsh-theme ]]; then
+        source ~/.local/src/powerlevel10k/powerlevel10k.zsh-theme
+    fi
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
+    # Initialization code that may require console input (password prompts, [y/n]
+    # confirmations, etc.) must go above this block; everything else may go below.
+    if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+        source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    fi
 fi
 
 # Enable colors and change prompt:
@@ -113,7 +116,12 @@ elif [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; th
     source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
-# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
-if [[ -f ~/.config/zsh/.p10k.zsh ]]; then
-    source ~/.config/zsh/.p10k.zsh
+# Check for `starship`; if unavailable; attempt to finalize `powerlevel10k`
+if ! [[ "$(command -v starship)" ]] || ! [[ -f ~/.config/starship.toml ]]; then
+    # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+    if [[ -f ~/.config/zsh/.p10k.zsh ]]; then
+        source ~/.config/zsh/.p10k.zsh
+    fi
+else
+    eval "$(starship init zsh)"
 fi

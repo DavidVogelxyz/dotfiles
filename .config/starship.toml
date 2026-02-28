@@ -1,0 +1,113 @@
+add_newline = true
+
+format = """
+[](black)\
+$os\
+[](bg:black fg:gray)\
+$username\
+[](bg:black fg:gray)\
+$directory\
+[](bg:black fg:gray)\
+$git_branch\
+$git_status\
+$git_state\
+$time\
+[ ](fg:black)\
+$cmd_duration\
+$line_break\
+$character"""
+
+palette = 'powerlevel'
+
+[os]
+disabled = false
+style = "bg:black fg:white"
+
+[os.symbols]
+Alpine = " "
+Arch = "󰣇 "
+Artix = "󰣇 "
+Debian = "󰣚 "
+Fedora = "󰣛 "
+Gentoo = "󰣨 "
+Linux = "󰌽 "
+Macos = "󰀵 "
+Manjaro = " "
+Mint = "󰣭 "
+Raspbian = "󰐿 "
+RedHatEnterprise = "󱄛 "
+Redhat = "󱄛 "
+SUSE = " "
+Ubuntu = "󰕈 "
+Windows = " "
+
+[username]
+show_always = true
+style_user = "bg:black fg:burgundy bold"
+style_root = "bg:black fg:white bold"
+format = '[ $user ]($style)'
+
+[directory]
+style = "bg:black fg:sapphire bold"
+format = "[   $path ]($style)"
+truncation_length = 0
+truncate_to_repo = false
+#truncation_symbol = "…/"
+
+[git_branch]
+symbol = ""
+style = "bg:black"
+format = '[[ $symbol $branch ](bg:black fg:green)]($style)'
+
+[git_status]
+style = "bg:black"
+format = '[[($all_status$ahead_behind)](bg:black fg:yellow)]($style)[](bg:black fg:gray)'
+conflicted = "=${count} "
+untracked = "?${count} "
+stashed = "\\$${count} "
+modified = "!${count} "
+staged = "+${count} "
+renamed = "»${count} "
+deleted = "✘${count} "
+ahead = '⇡${count} '
+behind = '⇣${count} '
+diverged = '⇕⇡${ahead_count}⇣${behind_count} '
+
+[git_state]
+style = "bg:black"
+format = '[[ $state ($progress_current/$progress_total) ](bg:black fg:red)]($style)[](bg:black fg:gray)'
+
+[time]
+disabled = false
+time_format = "%T"
+style = "bg:black"
+format = '[[  $time ](bg:black fg:steel)]($style)'
+
+[character]
+disabled = false
+success_symbol = '[❯](bold fg:green)'
+error_symbol = '[❯](bold fg:red)'
+vimcmd_symbol = '[❮](bold fg:green)'
+vimcmd_replace_one_symbol = '[❮](bold fg:sapphire)'
+vimcmd_replace_symbol = '[❮](bold fg:sapphire)'
+vimcmd_visual_symbol = '[❮](bold fg:yellow)'
+
+[cmd_duration]
+#show_milliseconds = true
+#format = " in $duration "
+#style = "bg:lavender"
+disabled = false
+#show_notifications = true
+min_time_to_notify = 60000
+
+[palettes.powerlevel]
+black = "#000000"
+gray = "#999999"
+white = "#ffffff"
+burgundy = "#af0000"
+red = "#e80d0d"
+#sapphire = "#209fb5"
+sapphire = "#04a5e5"
+green = "#0eed33"
+yellow = "#df8e1d"
+steel = "#7db3c7"
