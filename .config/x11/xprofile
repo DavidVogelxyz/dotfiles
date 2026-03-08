@@ -21,5 +21,10 @@ for program in $autostart; do
     pidof -sx "$program" || "$program" &
 done >/dev/null 2>&1
 
+# If `xautolock` is installed, start it
+if [[ "$(command -v "xautolock")" ]]; then
+    xautolock -time 5 -locker slock &
+fi
+
 # Ensure that xrdb has finished running before moving on to start the WM/DE.
 [ -n "$xrdbpid" ] && wait "$xrdbpid"
