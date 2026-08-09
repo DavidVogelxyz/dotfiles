@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+SSH_AGENT_ENV_FILE=~/.ssh/agent.env
+
+# Assert that `SSH_AUTH_SOCK` is not defined
+if [[ "$SSH_AUTH_SOCK" ]]; then
+    exit 0
+fi
+
+# Attempt to load the `SSH_AGENT_ENV_FILE`
+if [[ -f "$SSH_AGENT_ENV_FILE" ]]; then
+    source "$SSH_AGENT_ENV_FILE" >| /dev/null
+fi
+
+# Checks if the info in `SSH_AGENT_ENV_FILE` is stale
+SSH_AGENT_RUN_STATE=$(ssh-add -l >| /dev/null 2>&1; echo $?)
+
+# If `SSH_AUTH_SOCK` is still not defined, start `ssh-agent`
+if [[ ! "$SSH_AUTH_SOCK" ]] || (( "$SSH_AGENT_RUN_STATE" == 2 )) ; then
+    (umask 077; ssh-agent >| "$SSH_AGENT_ENV_FILE")
+    source "$SSH_AGENT_ENV_FILE" >| /dev/null
+fi
+
+unset SSH_AGENT_ENV_FILE
+unset SSH_AGENT_RUN_STATE

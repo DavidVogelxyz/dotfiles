@@ -125,3 +125,10 @@ if ! [[ "$(command -v starship)" ]] || ! [[ -f ~/.config/starship.toml ]]; then
 else
     eval "$(starship init zsh)"
 fi
+
+# Check for the SSH agent process; if it doesn't exist, attempt to start it
+if [[ ! "$SSH_AUTH_SOCK" ]]; then
+    if [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/start_ssh_agent" ]]; then
+        source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/start_ssh_agent"
+    fi
+fi
