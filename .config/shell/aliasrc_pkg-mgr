@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+if [[ "$(command -v pacman)" ]]; then
+    alias \
+        p="pacman" \
+        update="pacman -Sy" \
+        upgrade="pacman -Syu"
+
+    command+=("pacman")
+elif [[ "$(command -v nala)" ]] && [[ "$(command -v apt)" ]]; then
+    alias \
+        apt="nala" \
+        update="nala update" \
+        upgrade="nala upgrade"
+
+    command+=("nala")
+elif [[ "$(command -v apt)" ]]; then
+    alias \
+        update="apt update" \
+        upgrade="apt upgrade"
+
+    command+=("apt")
+elif [[ "$(command -v apk)" ]]; then
+    alias \
+        update="apk update" \
+        upgrade="apk upgrade"
+
+    command+=("apk")
+elif [[ "$(command -v dnf)" ]]; then
+    alias \
+        update="dnf update" \
+        upgrade="dnf update"
+
+    command+=("dnf")
+elif [[ "$(command -v xbps-install)" ]]; then
+    alias \
+        xi="xbps-install" \
+        xq="xbps-query" \
+        xr="xbps-remove -R"
+
+    command+=(
+        "xbps-install"
+        "xbps-remove"
+    )
+elif [[ "$(command -v nixos-rebuild)" ]]; then
+    command+=("nixos-rebuild")
+fi
