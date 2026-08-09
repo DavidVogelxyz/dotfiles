@@ -40,6 +40,7 @@ alias \
     mount_nfs="mount -a -t nfs" \
     rsync="rsync -avuP" \
     tmux="tmux -u" \
+    tree="tree -a" \
     trem="transmission-remote" \
     v="$EDITOR" \
     weath="less -S ${XDG_CACHE_HOME:-$HOME/.cache}/weatherreport" \
