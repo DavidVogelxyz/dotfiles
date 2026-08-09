@@ -68,12 +68,12 @@ else
     alias ls="ls -lah --color=auto --group-directories-first"
 fi
 
-# If `bat` is `batcat`, swap `batcat` for `bat`
+# If `bat` is `batcat`, alias `bat` to `batcat`
 if [[ "$(command -v batcat)" ]]; then
     alias bat="batcat"
 fi
 
-# If neovim is installed, swap `vim` for `nvim`
+# If neovim is installed, alias `vim` to `nvim`
 if [[ "$(command -v nvim)" ]]; then
     alias \
         vim="nvim" \
