@@ -1,25 +1,29 @@
 #!/usr/bin/env bash
 
-SSH_AGENT_ENV_FILE=~/.ssh/agent.env
+# This script should handle the following situation:
+# - if dwm, then `xinitrc` should have executed `dbus-launch ssh-agent dwm`:
+#     - therefore, this script should exit, since `SSH_AGENT_PID` should be defined
+#     - if ssh to dwm host, then this script should identify the `ssh-agent` process
+# - if not dwm host, this script should start `ssh-agent` if it isn't running:
+#     - if `ssh-agent` is running, then this script should identify the process
 
-# Assert that `SSH_AUTH_SOCK` is not defined
-if [[ "$SSH_AUTH_SOCK" ]]; then
+# Assert that `SSH_AGENT_PID` is not defined
+if [[ "$SSH_AGENT_PID" ]]; then
     exit 0
 fi
 
-# Attempt to load the `SSH_AGENT_ENV_FILE`
-if [[ -f "$SSH_AGENT_ENV_FILE" ]]; then
-    source "$SSH_AGENT_ENV_FILE" >| /dev/null
+ssh_agent_lookup() {
+    export SSH_AGENT_PID=$(pgrep -u $USER ssh-agent)
+    export SSH_AUTH_SOCK=$(for f in ${HOME}/.ssh/agent/*; do if [[ -S $f ]]; then echo "$f"; break; fi; done 2> /dev/null)
+}
+
+# Look for `ssh-agent` process
+ssh_agent_lookup
+
+# If `SSH_AGENT_PID` or `SSH_AUTH_SOCK` are not defined, start `ssh-agent`
+if [[ ! "$SSH_AGENT_PID" ]] || [[ ! "$SSH_AUTH_SOCK" ]] ; then
+    (ssh-agent >| /dev/null)
+    ssh_agent_lookup
 fi
 
-# Checks if the info in `SSH_AGENT_ENV_FILE` is stale
-SSH_AGENT_RUN_STATE=$(ssh-add -l >| /dev/null 2>&1; echo $?)
-
-# If `SSH_AUTH_SOCK` is still not defined, start `ssh-agent`
-if [[ ! "$SSH_AUTH_SOCK" ]] || (( "$SSH_AGENT_RUN_STATE" == 2 )) ; then
-    (umask 077; ssh-agent >| "$SSH_AGENT_ENV_FILE")
-    source "$SSH_AGENT_ENV_FILE" >| /dev/null
-fi
-
-unset SSH_AGENT_ENV_FILE
-unset SSH_AGENT_RUN_STATE
+unset -f ssh_agent_lookup

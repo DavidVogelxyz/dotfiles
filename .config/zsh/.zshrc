@@ -127,7 +127,7 @@ else
 fi
 
 # Check for the SSH agent process; if it doesn't exist, attempt to start it
-if [[ ! "$SSH_AUTH_SOCK" ]]; then
+if [[ ! "$SSH_AGENT_PID" ]]; then
     if [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/start_ssh_agent" ]]; then
         source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/start_ssh_agent"
     fi
