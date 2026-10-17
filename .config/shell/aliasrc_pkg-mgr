@@ -3,8 +3,8 @@
 if [[ "$(command -v pacman)" ]]; then
     alias \
         p="pacman" \
-        update="pacman -Sy" \
-        upgrade="pacman -Syu"
+        update="pacman -Syy" \
+        upgrade="pacman -Syyu"
 
     command+=("pacman")
 elif [[ "$(command -v nala)" ]] && [[ "$(command -v apt)" ]]; then
