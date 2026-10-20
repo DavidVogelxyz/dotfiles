@@ -17,5 +17,13 @@
     rebase-int = rebase --committer-date-is-author-date -i
     status-remote = rev-list --left-right --count
     s = status
+#[pager]
+#    diff = /usr/share/git/diff-highlight/diff-highlight | less
+#    log = /usr/share/git/diff-highlight/diff-highlight | less
+#    show = /usr/share/git/diff-highlight/diff-highlight | less
+[core]
+    pager = /usr/share/git/diff-highlight/diff-highlight | less
+[interactive]
+    diffFilter = /usr/share/git/diff-highlight/diff-highlight
 [include]
     path = ~/.gitconfig-private
