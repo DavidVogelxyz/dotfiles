@@ -10,6 +10,7 @@
 [difftool]
     prompt = false
 [alias]
+    d = diff --color
     lg = lg1
     lg1 = log --all --decorate --graph --abbrev-commit --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(white)- %an%C(reset)%C(auto)%d%C(reset)'
     #lg1 = log --all --decorate --graph --abbrev-commit --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
